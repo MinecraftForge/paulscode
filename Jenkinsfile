@@ -14,21 +14,7 @@ pipeline {
     stages {
         stage('fetch') {
             steps {
-                checkout([
-                    $class: 'GitSCM',
-                    branches: scm.branches,
-                    doGenerateSubmoduleConfigurations: false,
-                    extensions: [[
-                        $class: 'SubmoduleOption',
-                        disableSubmodules: false,
-                        parentCredentials: true,
-                        recursiveSubmodules: true,
-                        reference: '',
-                        trackingSubmodules: false
-                    ]],
-                    submoduleCfg: [],
-                    userRemoteConfigs: scm.userRemoteConfigs
-                ])
+                checkout scm
             }
         }
         stage('buildandtest') {
@@ -62,9 +48,7 @@ pipeline {
     }
     post {
         always {
-          archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
-          junit 'build/test-results/*/*.xml'
-          jacoco sourcePattern: '**/src/*/java'
+          archiveArtifacts artifacts: 'soundsystem/build/libs/**/*.jar', fingerprint: true
         }
     }
 }
