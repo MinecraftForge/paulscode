@@ -1082,8 +1082,13 @@ public class Library
     public void removeSource( String sourcename )
     {
         Source mySource = sourceMap.get( sourcename );
-        if( mySource != null )
-            mySource.cleanup(); // end the source, free memory
+        if( mySource != null ) {
+            // if this is a streaming source just mark it removed - https://github.com/MinecraftForge/MinecraftForge/pull/4765
+            if ( mySource.toStream )
+                mySource.removed = true;
+            else
+                mySource.cleanup(); // end the source, free memory
+        }
         sourceMap.remove( sourcename );
     }
 

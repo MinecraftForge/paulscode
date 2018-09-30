@@ -108,6 +108,12 @@ public class StreamThread extends SimpleThread
                     while( !dying() && iter.hasNext() )
                     {
                         src = iter.next();
+                        // If this is a removed source, we cleanup here and then let normal cleanup run - https://github.com/MinecraftForge/MinecraftForge/pull/4765
+                        if (src!=null && src.removed)
+                        {
+                            src.cleanup();
+                            src = null;
+                        }
                         if( src == null )
                         {
                             iter.remove();

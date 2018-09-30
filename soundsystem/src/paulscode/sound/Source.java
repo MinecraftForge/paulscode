@@ -154,6 +154,12 @@ public class Source
  */
     public float sourceVolume = 1.0f;
 
+    /**
+     * Indicates to the streaming thread that this source is removed and needs cleanup.
+     * @see https://github.com/MinecraftForge/MinecraftForge/pull/4765
+     */
+    public boolean removed = false;
+
 /**
  * This value represents the source's pitch (float value between 0.5f - 2.0f).
  */
