@@ -190,6 +190,11 @@ public class Source
     private boolean paused = false;
     
 /**
+ * Whether or not this source has been removed by the streaming thread (only works if toStream is true).
+ */
+    public boolean removed = false;
+    
+/**
  * Codec used to read data for streaming sources.
  */
     protected ICodec codec = null;

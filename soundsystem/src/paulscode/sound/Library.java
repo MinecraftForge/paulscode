@@ -1083,7 +1083,10 @@ public class Library
     {
         Source mySource = sourceMap.get( sourcename );
         if( mySource != null )
-            mySource.cleanup(); // end the source, free memory
+            if( mySource.toStream )
+                mySource.removed = true;
+            else
+                mySource.cleanup(); // end the source, free memory
         sourceMap.remove( sourcename );
     }
 

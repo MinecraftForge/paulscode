@@ -112,6 +112,11 @@ public class StreamThread extends SimpleThread
                         {
                             iter.remove();
                         }
+                        else if( src.removed )
+                        {
+                            src.cleanup();
+                            iter.remove();
+                        }
                         else if( src.stopped() )
                         {
                             if( !src.rawDataStream )
