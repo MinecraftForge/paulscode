@@ -1,0 +1,95 @@
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'java-library'
+
+group 'paulscode'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+version = dateversion()
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "forge"
+        url = "http://files.minecraftforge.net/maven"
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+
+dependencies {
+}
+
+artifacts {
+    archives jar
+    archives sourcesJar
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            pom {
+                name = 'Paulscode SoundSystem'
+                description = 'Paulscode SoundSystem'
+                url = 'https://github.com/MinecraftForge/paulscode'
+                scm {
+                    url = 'https://github.com/MinecraftForge/paulscode'
+                    connection = 'scm:git:git://github.com/MinecraftForge/paulscode.git'
+                    developerConnection = 'scm:git:git@github.com:MinecraftForge/paulscode.git'
+                }
+                issueManagement {
+                    system = 'github'
+                    url = 'https://github.com/MinecraftForge/paulscode/issues'
+                }
+
+                licenses {
+                    license {
+                        name = 'Paulscode SoundSystem'
+                        url = 'soundsystem/SoundSystem License.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'paulscode'
+                        name = 'paulscode'
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username project.properties.forgeMavenUser?:'fake'
+                password project.properties.forgeMavenPassword?:'news'
+            }
+            url "http://files.minecraftforge.net/maven/manage/upload"
+        }
+        maven {
+            name = "localdir"
+            url project.file("repo")
+        }
+    }
+}
+
+
+def dateversion() {
+    return new Date().format("yyyyMMddHHmm")
+}
