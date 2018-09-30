@@ -223,7 +223,7 @@ public class SoundSystem
     protected void init( Class libraryClass ) throws SoundSystemException
     {
         message( "", 0 );
-        message( "Starting up " + className + " version "+ libraryClass.getPackage().getImplementationVersion()+"...", 0 );
+        message( "Starting up " + className + " version "+ SoundSystem.class.getPackage().getImplementationVersion()+"...", 0 );
         
         // create the random number generator:
         randomNumberGenerator = new Random();
