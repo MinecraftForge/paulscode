@@ -2,7 +2,7 @@ apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'java-library'
 
-group 'paulscode'
+group 'com.paulscode'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
